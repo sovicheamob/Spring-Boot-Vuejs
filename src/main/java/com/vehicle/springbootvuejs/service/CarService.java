@@ -33,31 +33,24 @@ public class CarService {
 			Car savedCar = carRepository.save(car);
 			return carMapper.toDTO(savedCar);
 		} catch (Exception e) {
+			// Handle specific exceptions here if needed
 			throw new RuntimeException("Failed to add car: " + e.getMessage());
 		}
 	}
 
 	public List<CarDTO> getCarsByWheelCount(int wheelCount) {
-		try {
-			List<Car> cars = carRepository.findByWheelCount(wheelCount);
-			if (cars.isEmpty()) {
-				throw new ResourceNotFoundException("No cars found with wheel count: " + wheelCount);
-			}
-			return cars.stream().map(carMapper::toDTO).toList();
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to fetch cars by wheel count: " + e.getMessage());
+		List<Car> cars = carRepository.findByWheelCount(wheelCount);
+		if (cars.isEmpty()) {
+			throw new ResourceNotFoundException("No cars found with wheel count: " + wheelCount);
 		}
+		return cars.stream().map(carMapper::toDTO).toList();
 	}
 
 	public List<CarDTO> getAllCars() {
-		try {
-			List<Car> cars = carRepository.findAll();
-			if (cars.isEmpty()) {
-				throw new ResourceNotFoundException("No cars found.");
-			}
-			return cars.stream().map(carMapper::toDTO).toList();
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to fetch all cars: " + e.getMessage());
+		List<Car> cars = carRepository.findAll();
+		if (cars.isEmpty()) {
+			throw new ResourceNotFoundException("No cars found.");
 		}
+		return cars.stream().map(carMapper::toDTO).toList();
 	}
 }
