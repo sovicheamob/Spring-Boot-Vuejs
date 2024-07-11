@@ -12,5 +12,4 @@ public class InternalConstant {
 	//ERROR MESSAGE
 	public static final String SUCCESS = "Successfully.";
 
-
 }
